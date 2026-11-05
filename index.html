@@ -16,43 +16,22 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
-            /* Fondo que simula las pinceladas nocturnas */
-            background: radial-gradient(circle at 50% 50%, #1a2a6c, #112240, #0a0f1d);
-            background-size: 200% 200%;
-            animation: fondoNoche 15s ease infinite;
-        }
-
-        /* Animación del fondo para que parezca que fluye */
-        @keyframes fondoNoche {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Efecto de estrellas fugaces y remolinos (Van Gogh) */
-        .estrellas-vangogh {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            background-color: #0d1b2a;
             background-image: 
-                radial-gradient(2px 2px at 20px 30px, #ffd700, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 40px, #ffd700, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 160px 120px, #a0c4ff, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            animation: girarEstrellas 60s linear infinite;
-            opacity: 0.6;
+                repeating-conic-gradient(from 0deg at 50% 50%, rgba(26, 42, 108, 0.4) 0deg 15deg, rgba(17, 34, 64, 0.4) 15deg 30deg),
+                repeating-conic-gradient(from 45deg at 20% 80%, rgba(160, 196, 255, 0.1) 0deg 10deg, transparent 10deg 20deg),
+                repeating-conic-gradient(from 180deg at 80% 20%, rgba(255, 215, 0, 0.05) 0deg 20deg, transparent 20deg 40deg);
+            background-size: 200% 200%, 150% 150%, 100% 100%;
+            animation: fondoVanGogh 20s ease-in-out infinite alternate;
         }
 
-        @keyframes girarEstrellas {
-            0% { transform: rotate(0deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1.2); }
+        @keyframes fondoVanGogh {
+            0% { background-position: 0% 0%; transform: scale(1); }
+            50% { background-position: 100% 100%; transform: scale(1.05); }
+            100% { background-position: 0% 100%; transform: scale(1); }
         }
 
-        /* Animación de los globos/estrellas de fondo */
-        .globos-fondo {
+        .estrellas-vangogh {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
@@ -60,42 +39,51 @@
             overflow: hidden;
         }
 
-        .globo {
+        .estrella {
             position: absolute;
-            bottom: -100px;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, #ffd700, #ffaa00);
             border-radius: 50%;
-            box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.4);
-            animation: flotar linear infinite;
-            opacity: 0.8;
+            background: radial-gradient(circle, #fff 10%, #ffd700 40%, transparent 70%);
+            box-shadow: 0 0 20px 10px rgba(255, 215, 0, 0.4);
+            animation: brillar linear infinite;
+            opacity: 0.7;
         }
 
-        .globo::after {
-            content: "";
+        .remolino {
             position: absolute;
-            bottom: -20px;
-            left: 50%;
-            width: 1px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.5);
-            transform: translateX(-50%);
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: girarRemolino linear infinite;
+        }
+        .remolino::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: 50%;
+            width: 10px; height: 10px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffd700;
         }
 
-        .globo:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; width: 30px; height: 30px; }
-        .globo:nth-child(2) { left: 25%; animation-duration: 10s; animation-delay: 1s; width: 50px; height: 50px; background: radial-gradient(circle, #a0c4ff, #4d79ff); box-shadow: 0 0 15px 5px rgba(160, 196, 255, 0.4);}
-        .globo:nth-child(3) { left: 45%; animation-duration: 9s; animation-delay: 2s; }
-        .globo:nth-child(4) { left: 65%; animation-duration: 11s; animation-delay: 0.5s; width: 20px; height: 20px; }
-        .globo:nth-child(5) { left: 80%; animation-duration: 7s; animation-delay: 3s; background: radial-gradient(circle, #a0c4ff, #4d79ff); box-shadow: 0 0 15px 5px rgba(160, 196, 255, 0.4);}
-        .globo:nth-child(6) { left: 90%; animation-duration: 12s; animation-delay: 1.5s; width: 45px; height: 45px; }
+        .estrella:nth-child(1) { top: 10%; left: 15%; width: 20px; height: 20px; animation-duration: 4s; }
+        .estrella:nth-child(2) { top: 25%; left: 80%; width: 30px; height: 30px; animation-duration: 6s; box-shadow: 0 0 30px 15px rgba(160, 196, 255, 0.5); background: radial-gradient(circle, #fff 10%, #a0c4ff 40%, transparent 70%);}
+        .estrella:nth-child(3) { top: 60%; left: 10%; width: 15px; height: 15px; animation-duration: 5s; }
+        .estrella:nth-child(4) { top: 80%; left: 70%; width: 25px; height: 25px; animation-duration: 7s; }
+        .estrella:nth-child(5) { top: 40%; left: 40%; width: 40px; height: 40px; animation-duration: 8s; opacity: 0.4;}
+        .estrella:nth-child(6) { top: 70%; left: 30%; width: 20px; height: 20px; animation-duration: 4.5s; box-shadow: 0 0 20px 10px rgba(160, 196, 255, 0.5); background: radial-gradient(circle, #fff 10%, #a0c4ff 40%, transparent 70%);}
 
-        @keyframes flotar {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-120vh) rotate(20deg); }
+        .remolino:nth-child(7) { top: 15%; left: 60%; width: 150px; height: 150px; animation-duration: 20s; }
+        .remolino:nth-child(8) { top: 65%; left: 75%; width: 250px; height: 250px; animation-duration: 30s; animation-direction: reverse; }
+
+        @keyframes brillar {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
         }
 
-        /* Botón de música flotante */
+        @keyframes girarRemolino {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .boton-musica {
             position: fixed;
             bottom: 20px;
@@ -120,21 +108,19 @@
             transform: scale(1.1);
         }
 
-        /* Contenido principal */
         .contenedor {
-            max-width: 900px;
+            max-width: 1200px; /* Aumentado para dar más espacio */
             margin: 0 auto;
             padding: 40px 20px;
-            /* Fondo semi-transparente oscuro con borde brillante */
-            background: rgba(17, 34, 64, 0.75);
-            border: 2px solid rgba(255, 215, 0, 0.3);
+            background: rgba(13, 27, 42, 0.85);
+            border: 2px solid rgba(255, 215, 0, 0.4);
             border-radius: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(160, 196, 255, 0.1);
             margin-top: 50px;
             margin-bottom: 50px;
             position: relative;
             z-index: 10;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         h1 {
@@ -142,7 +128,7 @@
             color: #ffd700;
             font-size: 3.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
         }
 
         h2 {
@@ -150,6 +136,7 @@
             font-size: 1.8rem;
             margin-top: 0;
             font-weight: 400;
+            text-shadow: 0 0 10px rgba(160, 196, 255, 0.4);
         }
 
         p.mensaje {
@@ -160,22 +147,22 @@
             max-width: 700px;
         }
 
-        /* --- COLLAGE DE CORAZÓN ESTILO VAN GOGH --- */
+        /* --- COLLAGE DE CORAZÓN AGRANDADO Y AJUSTADO --- */
         .corazon-collage {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            /* Ajustamos las columnas para que la central sea más ancha */
+            grid-template-columns: 1fr 1.2fr 1fr;
             grid-template-rows: repeat(3, 1fr);
-            gap: 12px;
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 15px;
-            /* Fondo y borde que simula un marco dorado */
+            gap: 12px; /* Espacio entre fotos */
+            max-width: 800px; /* Mucho más grande */
+            margin: 50px auto;
+            padding: 25px; /* Más relleno para que las fotos no toquen el borde del corazón */
+            
             background: linear-gradient(45deg, #0a0f1d, #1a2a6c);
             border-radius: 20px;
-            border: 3px solid #ffd700;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(0,0,0,0.8);
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.3), inset 0 0 40px rgba(0,0,0,0.9);
             
-            /* Máscara de corazón */
             -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,85 C50,85 10,55 10,30 C10,10 30,10 50,30 C70,10 90,10 90,30 C90,55 50,85 50,85 Z" fill="black"/></svg>');
             mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,85 C50,85 10,55 10,30 C10,10 30,10 50,30 C70,10 90,10 90,30 C90,55 50,85 50,85 Z" fill="black"/></svg>');
             -webkit-mask-size: cover;
@@ -189,37 +176,38 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s, filter 0.3s;
-            filter: brightness(0.9) contrast(1.1); /* Ligero ajuste artístico */
+            transition: transform 0.4s, filter 0.4s;
+            filter: brightness(0.9) contrast(1.1) saturate(1.1);
+            border-radius: 5px; /* Un pequeño borde redondeado a cada foto */
         }
 
         .corazon-collage img:hover {
             transform: scale(1.1);
-            filter: brightness(1.2) contrast(1.1);
+            filter: brightness(1.1) contrast(1.1) saturate(1.3);
             z-index: 2;
             position: relative;
         }
 
-        /* Posicionamiento de las fotos dentro del corazón (3x3) */
-        .foto-c1 { grid-column: 1 / 2; grid-row: 1 / 3; }
-        .foto-c2 { grid-column: 3 / 4; grid-row: 1 / 3; }
-        .foto-c3 { grid-column: 1 / 2; grid-row: 3 / 4; }
-        .foto-c4 { grid-column: 3 / 4; grid-row: 3 / 4; }
-        .foto-c5 { grid-column: 2 / 3; grid-row: 1 / 4; }
+        /* Posicionamiento ajustado para llenar el corazón */
+        .foto-c1 { grid-column: 1 / 2; grid-row: 1 / 3; } /* Arriba Izq */
+        .foto-c2 { grid-column: 3 / 4; grid-row: 1 / 3; } /* Arriba Der */
+        .foto-c3 { grid-column: 1 / 2; grid-row: 2 / 4; } /* Abajo Izq (Se expande hacia arriba) */
+        .foto-c4 { grid-column: 3 / 4; grid-row: 2 / 4; } /* Abajo Der (Se expande hacia arriba) */
+        .foto-c5 { grid-column: 2 / 3; grid-row: 1 / 4; } /* Centro (Más grande) */
 
-        /* Contenedor de la foto principal */
         .foto-principal-abajo {
-            max-width: 300px;
+            max-width: 350px;
             margin: 40px auto 20px auto;
             background: #fff;
-            padding: 10px;
+            padding: 12px;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7), 0 0 20px rgba(255, 215, 0, 0.2);
             transform: rotate(-3deg);
             transition: transform 0.3s ease;
         }
         .foto-principal-abajo:hover {
             transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9), 0 0 40px rgba(255, 215, 0, 0.5);
         }
         .foto-principal-abajo img {
             width: 100%;
@@ -228,7 +216,6 @@
             border-radius: 5px;
         }
 
-        /* Botón sorpresa */
         .boton-sorpresa {
             background-color: #ffd700;
             color: #112240;
@@ -246,8 +233,8 @@
 
         .boton-sorpresa:hover {
             background-color: #ffea00;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.7);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.8);
         }
 
         .mensaje-oculto {
@@ -261,6 +248,7 @@
             color: #ffd700;
             font-weight: bold;
             animation: aparecer 1s ease;
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1);
         }
 
         @keyframes aparecer {
@@ -268,34 +256,43 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 600px) {
+        /* Ajustes para celulares */
+        @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 1.4rem; }
-            .corazon-collage { max-width: 90%; gap: 6px; padding: 8px;}
             .contenedor { margin-top: 20px; margin-bottom: 20px; padding: 20px 10px;}
+            /* El corazón ocupará el 100% de la pantalla disponible */
+            .corazon-collage { 
+                max-width: 100%; 
+                gap: 5px; 
+                padding: 10px;
+                margin: 30px auto;
+                border-width: 2px;
+            }
+            .foto-principal-abajo { max-width: 280px; }
+            .remolino { display: none; } 
         }
     </style>
 </head>
 <body>
 
-    <!-- Fondo de estrellas giratorias -->
-    <div class="estrellas-vangogh"></div>
+    <div class="estrellas-vangogh">
+        <div class="estrella"></div>
+        <div class="estrella"></div>
+        <div class="estrella"></div>
+        <div class="estrella"></div>
+        <div class="estrella"></div>
+        <div class="estrella"></div>
+        <div class="remolino"></div>
+        <div class="remolino"></div>
+    </div>
 
-    <!-- Audio -->
     <audio id="audioFondo" loop>
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Botón Música -->
     <button class="boton-musica" id="btnMusica" onclick="controlarMusica()" title="Música">🎵</button>
 
-    <!-- Globos/Estrellas flotantes -->
-    <div class="globos-fondo">
-        <div class="globo"></div><div class="globo"></div><div class="globo"></div>
-        <div class="globo"></div><div class="globo"></div><div class="globo"></div>
-    </div>
-
-    <!-- Contenido Principal -->
     <div class="contenedor">
         <h1>¡Feliz Cumpleaños, Angie!</h1>
         <h2>✨ Un día especial bajo las estrellas ✨</h2>
@@ -316,12 +313,10 @@
             <img class="foto-c5" src="foto6.jpg" alt="Recuerdo Central">
         </div>
 
-        <!-- FOTO PRINCIPAL (Forma de corazón) -->
         <div class="foto-principal-abajo">
             <img src="foto1.jpg" alt="Angie y yo - Corazón">
         </div>
 
-        <!-- Botón Sorpresa -->
         <button class="boton-sorpresa" onclick="mostrarSorpresa()">🌟 Abre tu sorpresa aquí 🌟</button>
         
         <div class="mensaje-oculto" id="sorpresa">
